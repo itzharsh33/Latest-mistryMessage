@@ -20,10 +20,7 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSwitchLoading, setIsSwitchLoading] = useState(false)
 
-  // Page component.
-// messages: array of messages to render.
-// isLoading: true when fetching messages.
-// isSwitchLoading: true when reading/updating the accept-messages switch (disables it while loading).
+
 
   const { data: session } = useSession()
 
@@ -34,14 +31,12 @@ const Page = () => {
   const { register, watch, setValue } = form;
   const acceptMessages = watch('acceptMessages')
 
-//   useForm sets up a tiny form (only used to manage the Switch value) with Zod validation.
-// register, watch, setValue are standard react-hook-form helpers.
-// acceptMessages is the current value of the switch (true/false).
+
 
   const handleDeleteMessage = (messageId: string) => {
     setMessages(messages.filter((message) => message._id !== messageId))
   }
-  // Removes a message from the UI state when child MessageCard signals deletion.
+  
 
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true)
@@ -58,12 +53,7 @@ const Page = () => {
     }
   }, [setValue])
 
-//   Sets isSwitchLoading while fetching.
-// Calls /api/accept-messages and updates form value acceptMessages.
-// On error shows toast.
-// Wrapped in useCallback so it can be safely used as a dependency elsewhere.
-// If response.data.isAcceptingMessages is null or undefined, use false instead.
-// Otherwise, use the actual value.
+
 
   const fetchMessages = useCallback(async (refresh: boolean = false) => {
     setIsLoading(true)
@@ -87,12 +77,7 @@ const Page = () => {
     }
   }, [setIsLoading, setMessages])
 
-//   Loads messages from /api/get-messages.
-// Accepts refresh flag to show a toast when user explicitly refreshes.
-// Ensures loading flags are set/cleared.
-// On success updates messages state.
-// On error shows toast.
-// Notes: setIsSwitchLoading(false) at start might be intended to reset switch loading if both actions overlap.
+
 
   useEffect(() => {
     if (!session || !session.user) return
@@ -100,15 +85,14 @@ const Page = () => {
     fetchAcceptMessage()
   }, [session, fetchAcceptMessage, fetchMessages])
 
-//   When session becomes available, fetch messages and the accept-messages flag.
-// Early return if user not logged in.
+
 
   const handleSwitchChange = async () => {
     try {
       const response = await axios.post<ApiResponse>('/api/accept-messages', {
         acceptMessages: !acceptMessages
       })
-      // why !acceptMessages is passed into acceptMessages is given in last of file 
+     
       setValue('acceptMessages', !acceptMessages)
 
       toast.success(response.data.message)
@@ -120,10 +104,7 @@ const Page = () => {
     }
   }
 
-//   Called when user toggles the Switch.
-// Posts new value to /api/accept-messages.
-// On success updates UI and shows success toast.
-// On failure shows error toast.
+
 
   if (!session || !session.user) {
     return (
@@ -134,15 +115,12 @@ const Page = () => {
     )
   }
 
-//   If session is not ready or user not present, render a centered loader and return early.
-// This prevents showing dashboard UI before authentication is determined.
+
 
   const username = session.user.username;
   const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : '';
   const profileUrl = `${baseUrl}/u/${username}`
 
-//   Build the public profile link (only when running in browser; server-side window is undefined).
-// Example: https://yourdomain.com/u/username.
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl)
@@ -188,10 +166,7 @@ const Page = () => {
             id="accept-messages"
             className="cursor-pointer data-[state=checked]:bg-indigo-600"
           />
-          {/* The Switch is connected to react-hook-form via register.
-          checked is controlled by acceptMessages.
-          onCheckedChange triggers handleSwitchChange.
-          disabled uses isSwitchLoading so user can't toggle while the app is loading the switch state. */}
+         
           <label htmlFor="accept-messages" className="ml-2 text-gray-300">
             Accept Messages: {acceptMessages ? 'On' : 'Off'}
           </label>
@@ -234,8 +209,7 @@ const Page = () => {
           )}
         </div>
       </div>
-      {/* If there are messages, map and render MessageCard for each.
-      MessageCard receives onMessageDelete — when a message is deleted it calls that callback to remove it from state. */}
+    
     
     </div>
       
@@ -254,19 +228,3 @@ export default Page
 
 
 
-
-// Frontend decides:
-// → The frontend already knows the current state (acceptMessages).
-// → When user clicks the switch, the frontend calculates the new value (!acceptMessages) and sends it.
-
-// Backend just saves:
-// → Backend receives { acceptMessages: true/false } and updates DB.
-// → Simple, predictable API: “set this field to this value”.
-
-// ✅ Advantages:
-
-// Backend stays stateless (just updates to whatever you send).
-
-// Easy to test and debug — if you send true, backend sets true.
-
-// Less chance of race conditions (backend doesn’t need to read first, then flip).

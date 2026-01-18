@@ -31,20 +31,17 @@ type MessageCardProps = {
     message: Message;
     onMessageDelete: (messageId: string) => void
 }
-// Defines props for this component:
-// message = the actual message object (content, id, createdAt).
-// onMessageDelete = a function passed by parent to update UI after deletion.
+
 
 const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
-// Defines the MessageCard component.
-// Receives message and onMessageDelete from parent.
+
     const handleDeleteConfirm = async () => {
         try {
             const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
             toast.success(response.data.message);
-            // Use the message._id from the component's props
+           
             onMessageDelete(message._id as string);
-            // Calls parent’s function to remove this message from UI (without reloading).
+           
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
             toast.error(axiosError.response?.data.message ?? "Failed to delete message");

@@ -1,4 +1,4 @@
-// import * as React from "react";
+
 import {
   Html,
   Head,
@@ -51,14 +51,7 @@ export default function VerificationEmail({ username, otp }: VerificationEmailPr
             If you did not request this code, please ignore this email.
           </Text>
         </Row>
-        {/* <Row>
-          <Button
-            href={`http://localhost:3000/verify/${username}`}
-            style={{ color: '#61dafb' }}
-          >
-            Verify here
-          </Button>
-        </Row> */}
+      
       </Section>
     </Html>
   );
@@ -76,18 +69,3 @@ export default function VerificationEmail({ username, otp }: VerificationEmailPr
 
 
 
-
-// This file builds an HTML email using @react-email/components.
-
-// It receives username and otp (verification code) as props and returns HTML content.
-
-// The Preview component sets the email preview text, Heading/Text build the body. This is a React component that will be rendered to HTML server-side before sending the email.
-
-
-
-// It looks like a React component (it uses JSX, props, components like <Html>, <Text>, etc.).
-
-// But those special components (Html, Text, Row, etc.) come from @react-email/components.
-// They aren’t like <div> or <p> — instead, they are React wrappers that will generate plain HTML.
-
-// So inside this file, you are still writing React code, not plain HTML.

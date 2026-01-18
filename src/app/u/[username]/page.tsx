@@ -61,8 +61,7 @@ export default function SendMessagePage() {
       const response = await axios.post('/api/suggest-messages');
       if (response.data.success) {
         setSuggestedMessages(response.data.messages);
-        //  setShowMessages(true);
-        // set all messages in SuggestMessages array
+   
       } else {
         toast.error(response.data.message);
       }
@@ -72,14 +71,11 @@ export default function SendMessagePage() {
     } finally {
       setIsSuggesting(false);
       setShowMessages(true);
-      // setShowMessages will be true in both success of fetchMessgaes
-      // if fetchMessgae will be true it will show message
-      // if fetchMessage will be false or fails then the suggestion box will appear, but it will be empty (no buttons inside).
+    
     }
   };
 
-//   Calls backend /api/suggest-messages to fetch suggestions.
-// Updates state with results, or shows error.
+
 
   const onSubmit = async (data: z.infer<typeof messageSchema>) => {
     setIsLoading(true);
@@ -101,10 +97,7 @@ export default function SendMessagePage() {
     }
   };
 
-//   Handles form submission.
-// Sends username + message content to /api/send-message.
-// Shows success toast or error toast.
-// Resets textarea after success.
+
 
   return (
     <div className="bg-gray-900 text-white min-h-screen relative">
@@ -153,7 +146,7 @@ export default function SendMessagePage() {
                   <Button
                     type="submit"
                     disabled={isLoading || !messageContent}
-                    // in above line there is no need of writing isLoading as it always will be false because this button shows only when isLoading is false but you can keep it as and also remove it.
+                   
                     className="bg-indigo-600 hover:bg-indigo-700 text-white"
                   >
                     Send It
@@ -163,10 +156,7 @@ export default function SendMessagePage() {
             </form>
           </Form>
         </div>
-        {/* Renders form with textarea.
-        Validates input using Zod.
-        Submit button → shows loader and please wait while sending. */}
-        {/* when message is sent and is loading or there is no message inside message box then this   disabled={isLoading || !messageContent} line making send it botton disable */}
+    
 
         <div className="space-y-4 my-10">
           <div className="space-y-2 text-center">
@@ -215,7 +205,7 @@ export default function SendMessagePage() {
                   <Button
                     key={index}
                     variant="outline"
-                    // className="mb-2 border-gray-300 text-gray-300 bg-transparent hover:bg-indigo-600 hover:text-white"
+                    
                     className="mb-2 h-auto whitespace-normal border-gray-300 bg-transparent p-4 text-left text-gray-300 hover:bg-indigo-600 hover:text-white"
                     onClick={() => handleMessageClick(message)}
                   >
@@ -226,31 +216,9 @@ export default function SendMessagePage() {
             </Card>
           )} 
 
-{/* {showMessages && (
-  <Card className="bg-gray-800/50 border border-gray-700/60 text-gray-100 backdrop-blur-sm max-w-full overflow-hidden">
-    <CardHeader>
-      <h3 className="text-xl font-semibold">Suggested Messages</h3>
-    </CardHeader>
-    <CardContent className="flex flex-wrap gap-2">
-      {suggestedMessages.map((message, index) => (
-        <Button
-          key={index}
-          variant="outline"
-          className="border-gray-300 text-gray-300 bg-transparent 
-                     hover:bg-indigo-600 hover:text-white 
-                     whitespace-normal break-words px-3 py-2"
-          onClick={() => handleMessageClick(message)}
-        >
-          {message}
-        </Button>
-      ))}
-    </CardContent>
-  </Card>
-)} */}
 
 
-          {/* If showMessages is true → shows suggested messages list.
-          Clicking a message fills it into form. */}
+     
         </div>
 
         <Separator className="my-14 bg-gray-700" />
@@ -278,31 +246,3 @@ export default function SendMessagePage() {
 
 
 
-
-// Behaviour scenarios (step-by-step)
-
-// Initial state
-
-// suggestedMessages = [], isSuggesting = false, showMessages = false
-
-// Button says "Suggest Messages".
-
-// Click → fetchSuggestedMessages() runs.
-
-// During fetch
-
-// isSuggesting = true → button disabled and text becomes "Generating...".
-
-// After fetch succeeds
-
-// suggestedMessages filled, isSuggesting = false, setShowMessages(true) → suggestions are shown.
-
-// Button now says "Hide Suggestions".
-
-// If user clicks again when suggestions exist
-
-// suggestedMessages.length !== 0 → code runs setShowMessages(!showMessages):
-
-// If currently shown → clicking hides them (button becomes "Suggest Messages" or "Show Suggestions" depending on state).
-
-// If hidden → clicking shows them (no re-fetch).

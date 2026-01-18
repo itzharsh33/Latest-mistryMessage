@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      // FIX: Replaced 'any' with specific types for credentials and the return value.
+      
       async authorize(credentials: Record<string, string> | undefined): Promise<User | null> {
         await dbConnect();
         try {
@@ -35,11 +35,7 @@ export const authOptions: NextAuthOptions = {
             ],
           });
 
-        //->  authorize runs when someone tries to sign in.
-
-        // Connects to DB.
-
-        // Finds a user by email OR username.
+       
 
           if (!user) {
             throw new Error('No user found with this email');
@@ -49,17 +45,14 @@ export const authOptions: NextAuthOptions = {
           }
 
   
-// -> If no user → throw error.
 
-// If user exists but not verified → throw error.
 
           const isPasswordCorrect = await bcrypt.compare(
             credentials?.password || '',
             user.password
           );
           if (isPasswordCorrect) {
-            // We return the full user object from the database.
-            // It's cast to the base 'User' type to match the function's expected return type.
+          
             return user as User;
           } else {
             throw new Error('Incorrect password');
@@ -75,17 +68,11 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
-//->  Compare entered password with hashed password in DB.
-
-// If correct → return user object.
-
-// If wrong → throw error.
 
   callbacks: {
     async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
-        // The 'user' object here is what we returned from 'authorize'.
-        // We cast it to our CustomUser type to safely access your database fields.
+   
         const customUser = user as CustomUser;
         token._id = customUser._id?.toString();
         token.isVerified = customUser.isVerified;
@@ -95,15 +82,10 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-// -> jwt callback runs whenever a JWT is created/updated.
 
-// If a user just logged in → put custom user data inside the token.
-
-    // FIX: Replaced 'any' with the official 'Session' type from NextAuth.
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token && session.user) {
-        // We transfer the custom properties from the token to the session user object.
-        // Casting session.user to our custom type allows us to add the new fields.
+   
         (session.user as CustomUser)._id = token._id as string;
         (session.user as CustomUser).isVerified = token.isVerified as boolean;
         (session.user as CustomUser).isAcceptingMessages = token.isAcceptingMessages as boolean;
@@ -112,9 +94,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
 
-// -> session callback runs whenever session is returned to client.
 
-// Copy data from token → into session.user so frontend can access it.
 
   },
   session: {
@@ -125,46 +105,5 @@ export const authOptions: NextAuthOptions = {
     signIn: '/sign-in',
   },
 };
-
-
-// -> Use JWT for sessions (not database sessions).
-
-// Secret is used to encrypt tokens.
-
-
-
-// ✅ Summary:
-// This file defines how NextAuth works:
-
-// Provider: login with email/username + password.
-
-// Authorize: check user in DB + bcrypt password check.
-
-// Callbacks: store custom fields in JWT & session.
-
-// Pages: custom login page.
-
-// Session: use JWT strategy, secured by secret.
-
-
-// 🧭 Why this two-step process (token → session)?
-
-// Because:
-
-// 🟡 Token = secure ID card stored in the cookie (used between server and browser)
-
-// 🟢 Session = a simple object sent to your frontend when it asks “who am I?”
-
-// By separating them:
-
-// You keep the main data in the token (safe, signed, stored client-side).
-
-// You control exactly what to show to the frontend in the session (avoid exposing sensitive stuff).
-
-
-// this format can be obtained from nextauth - > credentials provider
-
-
-
 
 

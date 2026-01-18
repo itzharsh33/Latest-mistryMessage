@@ -113,19 +113,7 @@
 }
 
 
-/* This block defines custom CSS properties specifically for the toasts. /
-/ It ensures that toasts have their own background and text colors, /
-/ overriding any global styles that might make them hard to see. /
-:root, .dark {
-/ This targets the main container of the toasts /
---toast-background: var(--color-background);
---toast-text-color: var(--color-foreground);
---toast-error-background: var(--color-destructive);
---toast-error-text: oklch(0.984 0.003 247.858); / A light color for the destructive toast */
 
-/* This block explicitly applies the new variables to the toast elements. /
-/ The data-sonner-toaster attribute is a common identifier for the library. /
-/ It ensures that the styles are applied correctly in both light and dark modes. */
 [data-sonner-toaster][data-theme="light"] {
 --normal-background: var(--toast-background);
 --normal-foreground: var(--toast-text-color);

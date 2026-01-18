@@ -37,7 +37,7 @@ toast.success("Success", {
 } catch (error) {
      console.error("Error in sighup of user",error)
       const axiosError = error as AxiosError<ApiResponse>;
-      // let errorMessage = axiosError.response?.data.message
+     
        const errorMessage = axiosError.response?.data.message
   toast.error("Sign-up failed", {
     description: errorMessage
@@ -102,29 +102,3 @@ export default VerifyAccount
 
 
 
-
-// "use client": Next.js directive meaning this file runs in the browser (client-side).
-
-// useParams, useRouter: Next.js client hooks to get route params and navigate.
-
-// toast (sonner): UI toast popup library.
-
-// zod + zodResolver: validate form input and integrate with react-hook-form.
-
-// AxiosError and ApiResponse types are imported to type-check error handling.
-
-
-// useParams<{username:string}>() — generic tells TS shape of returned params. (Note: Next.js useParams may return string | string[] | undefined at runtime; the generic helps static typing.)
-
-// z.infer<typeof verifySchema> extracts a TypeScript type from your verifySchema (so the form fields are typed automatically).
-
-
-// axios.post(...) sends POST JSON to /api/verify-code. await waits for server response.
-
-// On success: you call router.replace('/sign-in') (navigate away) and show a success toast with response.data.message.
-
-// On failure: axios throws (for non-2xx responses). In catch, you cast the error as AxiosError<ApiResponse> to let TypeScript know the shape. Then read axiosError.response?.data.message and display it in a toast.
-
-// Form rendering:
-
-// react-hook-form with zodResolver is used to validate the input before sending. Fields and UI wrappers are standard — the important part is form.handleSubmit(onSubmit) which calls your async handler with typed data.
