@@ -4,7 +4,8 @@ A full-stack anonymous feedback platform built using Next.js that allows users t
 
 🌐 Live Demo
 
-https://mistry-message-new.vercel.app
+(Add your deployed link here)
+Example: mistry-message-new.vercel.app
 
 🛠 Tech Stack
 Frontend & Backend
