@@ -3,9 +3,7 @@
 A full-stack anonymous feedback platform built using Next.js that allows users to receive honest feedback securely and anonymously. The application focuses on privacy, simplicity, and usability while providing meaningful message suggestions.
 
 🌐 Live Demo
-
-(Add your deployed link here)
-Example: mistry-message-new.vercel.app
+ mistry-message-new.vercel.app
 
 🛠 Tech Stack
 Frontend & Backend
