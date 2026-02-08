@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🚀 Anonymous Feedback Platform (Next.js)
 
-## Getting Started
+A full-stack anonymous feedback platform built using Next.js that allows users to receive honest feedback securely and anonymously. The application focuses on privacy, simplicity, and usability while providing meaningful message suggestions.
 
-First, run the development server:
+🌐 Live Demo
 
-```bash
+(Add your deployed link here)
+Example: mistry-message-new.vercel.app
+
+🛠 Tech Stack
+Frontend & Backend
+
+Next.js
+
+Tailwind CSS (if used)
+
+API Routes (Next.js)
+
+Database
+
+MongoDB
+
+Mongoose
+
+Authentication & Services
+
+OTP Verification (Resend)
+
+Secure Sign-In System
+
+Message Suggestion API
+
+Deployment
+
+Vercel
+
+MongoDB Atlas
+
+
+✨ Features
+User Authentication
+
+Custom Sign Up with OTP verification
+
+Secure Sign In system
+
+Email verification using Resend
+
+Anonymous Messaging
+
+Receive feedback anonymously
+
+No sender identity revealed
+
+Clean inbox interface
+
+Message Assistance
+
+Built-in message suggestion API
+
+Helps users write meaningful feedback
+
+Platform
+
+Responsive UI
+
+User-friendly design
+
+Fast and lightweight system
+
+
+⚙️ Local Setup (For Developers)
+
+1️⃣ Clone the Repository
+
+git clone https://github.com/your-username/anonymous-feedback-platform.git
+cd anonymous-feedback-platform
+
+
+2️⃣ Install Dependencies
+
+npm install
+
+
+3️⃣ Environment Variables Setup
+
+Create a .env.local file in the root directory:
+
+MONGODB_URI=your_mongodb_connection_string
+RESEND_API_KEY=your_resend_api_key
+NEXTAUTH_SECRET=your_secret_key
+NEXTAUTH_URL=http://localhost:3000
+
+
+4️⃣ Run the Development Server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open in browser:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+🔒 Security
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+OTP-based authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Secure session handling
 
-## Deploy on Vercel
+Protected API routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Encrypted credentials
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Environment-based secrets
+
+
+📈 Key Learnings
+
+Implementing OTP-based authentication with Resend
+
+Building secure sign-in and verification flows
+
+Integrating MongoDB with Next.js APIs
+
+Structuring reusable components
+
+Managing global app state
+
+Developing a complete full-stack application using Next.js
+
+
+👨‍💻 Author
+
+Harsh Kumar Yadav
+B.Tech CSE | Full Stack Developer
+
+GitHub: https://github.com/itzharsh33
