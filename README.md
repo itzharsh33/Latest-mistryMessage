@@ -4,8 +4,7 @@ A full-stack anonymous feedback platform built using Next.js that allows users t
 
 🌐 Live Demo
 
-(Add your deployed link here)
-Example: mistry-message-new.vercel.app
+https://mistry-message-new.vercel.app
 
 🛠 Tech Stack
 Frontend & Backend
@@ -73,7 +72,7 @@ Fast and lightweight system
 
 1️⃣ Clone the Repository
 
-git clone https://github.com/your-username/anonymous-feedback-platform.git
+git clone https://github.com/itzharsh33/anonymous-feedback-platform.git
 cd anonymous-feedback-platform
 
 
